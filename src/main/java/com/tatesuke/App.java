@@ -2,14 +2,18 @@ package com.tatesuke;
 
 import java.awt.AWTException;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 
 public class App {
+
+	private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy/MM/dd");
+
 	public static void main(String[] args) throws AWTException {
 		String profilePath = args[0];
 		String idUfj = args[1];
@@ -23,8 +27,6 @@ public class App {
 				new File(profilePath));
 		WebDriverRunner.setWebDriver(new FirefoxDriver(profile));
 
-		Configuration.holdBrowserOpen = true;
-
 		IAccount[] accounts = {
 				new UcAccount(idUc, passUc),
 				new RakutenAccount(idRakuten, passRakuten),
@@ -36,11 +38,12 @@ public class App {
 		for (IAccount account : accounts) {
 			int balance = account.getBalance();
 			sum += balance;
-
-			System.out.print(account.getName() + "\t");
-			System.out.println(balance);
+//
+//			System.out.print(account.getName() + "\t");
+//			System.out.println(balance);
 		}
-		System.out.println("合計\t" + sum);
+
+		System.out.println(SDF.format(new Date()) + ", " + sum);
 	}
 
 }
