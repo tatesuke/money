@@ -42,7 +42,7 @@ public class App {
 //			System.out.print(account.getName() + "\t");
 //			System.out.println(balance);
 		}
-
+		System.out.println("date, balance");
 		System.out.println(SDF.format(new Date()) + ", " + sum);
 	}
 
