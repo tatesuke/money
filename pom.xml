@@ -41,7 +41,7 @@
     </descriptorRefs>
     <archive>
       <manifest>
-        <mainClass>com.tatesuke.App</mainClass>
+        <mainClass>com.tatesuke.money.App</mainClass>
       </manifest>
     </archive>
   </configuration>
