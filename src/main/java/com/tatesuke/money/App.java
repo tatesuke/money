@@ -33,22 +33,27 @@ public class App {
 				new JibunAccount(idUfj, passUfj),
 		};
 
+		int balance = 0;
 		for (IAccount account : accounts) {
 			account.loadBalance();
+			balance += account.getBalance();
+			System.out.println(account.getName() + "の残高:" + account.getBalance());
 		}
+		System.out.println("総残高:" + balance);
 
 		ZaimManager zm = new ZaimManager(idZaim, passZaim);
-		for (IAccount account : accounts) {
-			int zaimBalance = zm.getBalance(account);
-			System.out.println(zaimBalance);
-			if (account.getBalance() < zaimBalance) {
-				int payment = zaimBalance - account.getBalance();
-				zm.createPayment(account, payment);
-			} else if (account.getBalance() > zaimBalance) {
-				int income = account.getBalance() - zaimBalance;
-				zm.createIncome(account, income);
-			}
+		int zaimBalance = zm.getBalance();
+		System.out.println("ZAIM上の残高:" + zaimBalance);
+		if (balance < zaimBalance) {
+			int payment = zaimBalance - balance;
+			System.out.println("ZAIMに支出を入力します:" + payment);
+			zm.createPayment(payment);
+		} else if (balance > zaimBalance) {
+			int income = balance - zaimBalance;
+			System.out.println("ZAIMに収入を入力します:" + income);
+			zm.createIncome(income);
 		}
+		zm.logout();
 	}
 
 	private static void init(String profilePath) {
