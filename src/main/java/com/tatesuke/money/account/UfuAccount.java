@@ -1,4 +1,4 @@
-package com.tatesuke;
+package com.tatesuke.money.account;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -14,6 +14,7 @@ public class UfuAccount implements IAccount {
 
 	private static final DecimalFormat DF = new DecimalFormat("###,###円");
 
+	private int balance;
 	private String idUfj;
 	private String passUfj;
 
@@ -28,7 +29,7 @@ public class UfuAccount implements IAccount {
 	}
 
 	@Override
-	public int getBalance() {
+	public int loadBalance() {
 		open("http://www.bk.mufg.jp/");
 		$("#k-login").find("a").click();
 		WebDriver webDriver = WebDriverRunner.getWebDriver();
@@ -48,14 +49,14 @@ public class UfuAccount implements IAccount {
 
 		$("#list img").click();
 		String amountStr = $(".yen_kouza_001 .number").innerText();
-		int amount = parse(amountStr);
+		balance = parse(amountStr);
 
 		$(By.linkText("ログアウト")).click();
 		$(By.linkText("閉じる")).click();
 
 		webDriver.switchTo().window(parentHander);
 
-		return amount;
+		return balance;
 	}
 
 	private int parse(String amountStr) {
@@ -64,6 +65,11 @@ public class UfuAccount implements IAccount {
 		} catch (ParseException e) {
 			throw new RuntimeException(e.fillInStackTrace());
 		}
+	}
+
+	@Override
+	public int getBalance() {
+		return balance;
 	}
 
 }

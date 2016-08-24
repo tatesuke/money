@@ -1,4 +1,4 @@
-package com.tatesuke;
+package com.tatesuke.money.account;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -12,6 +12,7 @@ public class UcAccount implements IAccount {
 	private static final DecimalFormat DF_MAX = new DecimalFormat("###,### 万円");
 	private static final DecimalFormat DF_AMMOUNT = new DecimalFormat("###,### 円");
 
+	private int balance;
 	private String idUc;
 	private String passUc;
 
@@ -26,7 +27,7 @@ public class UcAccount implements IAccount {
 	}
 
 	@Override
-	public int getBalance() {
+	public int loadBalance() {
 		open("https://api.saisoncard.co.jp/auth/screen/atu/authorize?response_type=code&client_id=ZC002&state=&scope=openid");
 
 		if ($("#capy-captcha").exists()) {
@@ -55,7 +56,8 @@ public class UcAccount implements IAccount {
 		int cashAmount  = parseAmount(cashAmountStr);
 
 
-		return -(shoppingMax - shoppingAmmount) - (cashMax - cashAmount) ;
+		balance = -(shoppingMax - shoppingAmmount) - (cashMax - cashAmount) ;
+		return balance;
 	}
 
 	private int parseMax(String amountStr) {
@@ -72,6 +74,11 @@ public class UcAccount implements IAccount {
 		} catch (ParseException e) {
 			throw new RuntimeException(e.fillInStackTrace());
 		}
+	}
+
+	@Override
+	public int getBalance() {
+		return balance;
 	}
 
 }

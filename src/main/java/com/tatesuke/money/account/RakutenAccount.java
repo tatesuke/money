@@ -1,4 +1,4 @@
-package com.tatesuke;
+package com.tatesuke.money.account;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -9,6 +9,7 @@ public class RakutenAccount implements IAccount {
 
 	private static final DecimalFormat DF = new DecimalFormat("###,###円");
 
+	private int balance;
 	private String idRakuten;
 	private String passRakuten;
 
@@ -23,7 +24,7 @@ public class RakutenAccount implements IAccount {
 	}
 
 	@Override
-	public int getBalance() {
+	public int loadBalance() {
 		open("https://www.rakuten-card.co.jp/e-navi/");
 
 		$("#u").val(idRakuten);
@@ -39,7 +40,8 @@ public class RakutenAccount implements IAccount {
 		int shoppingAmount = parse(shoppingAmountStr);
 		int cassingAmount = parse(cassingAmountStr);
 
-		return -(shoppingAmount + cassingAmount);
+		balance = -(shoppingAmount + cassingAmount);
+		return balance;
 	}
 
 	private int parse(String amountStr) {
@@ -48,6 +50,11 @@ public class RakutenAccount implements IAccount {
 		} catch (ParseException e) {
 			throw new RuntimeException(e.fillInStackTrace());
 		}
+	}
+
+	@Override
+	public int getBalance() {
+		return balance;
 	}
 
 }
