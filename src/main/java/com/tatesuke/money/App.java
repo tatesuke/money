@@ -8,6 +8,8 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import com.codeborne.selenide.WebDriverRunner;
 import com.tatesuke.money.account.IAccount;
 import com.tatesuke.money.account.JibunAccount;
+import com.tatesuke.money.account.RakutenAccount;
+import com.tatesuke.money.account.UcAccount;
 import com.tatesuke.money.account.UfjAccount;
 
 public class App {
@@ -25,8 +27,8 @@ public class App {
 
 		init(profilePath);
 		IAccount[] accounts = {
-//				new UcAccount(idUc, passUc),
-//				new RakutenAccount(idRakuten, passRakuten),
+				new UcAccount(idUc, passUc),
+				new RakutenAccount(idRakuten, passRakuten),
 				new UfjAccount(idUfj, passUfj),
 				new JibunAccount(idUfj, passUfj),
 		};
