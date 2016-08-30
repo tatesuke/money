@@ -8,6 +8,7 @@ import java.text.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
 
 public class JibunAccount implements IAccount {
@@ -39,6 +40,7 @@ public class JibunAccount implements IAccount {
 			webDriver.switchTo().window(windowhandle);
 		}
 
+		$("#account_id").waitUntil(Condition.appear, 30000); //画面表示に時間がかかることがあるので、しばらく待つ
 		$("#account_id").val(idUfj);
 		$("#ib_password").val(passUfj).pressEnter();
 

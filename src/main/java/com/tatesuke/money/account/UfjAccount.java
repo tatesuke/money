@@ -8,9 +8,10 @@ import java.text.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
 
-public class UfuAccount implements IAccount {
+public class UfjAccount implements IAccount {
 
 	private static final DecimalFormat DF = new DecimalFormat("###,###円");
 
@@ -18,7 +19,7 @@ public class UfuAccount implements IAccount {
 	private String idUfj;
 	private String passUfj;
 
-	public UfuAccount(String idUfj, String passUfj) {
+	public UfjAccount(String idUfj, String passUfj) {
 		this.idUfj = idUfj;
 		this.passUfj = passUfj;
 	}
@@ -39,6 +40,7 @@ public class UfuAccount implements IAccount {
 			webDriver.switchTo().window(windowhandle);
 		}
 
+		$("#account_id").waitUntil(Condition.appear, 30000); //画面表示に時間がかかることがあるので、しばらく待つ
 		$("#account_id").val(idUfj);
 		$("#ib_password").val(passUfj).pressEnter();
 
