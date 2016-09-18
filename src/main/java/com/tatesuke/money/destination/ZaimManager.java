@@ -1,4 +1,4 @@
-package com.tatesuke.money;
+package com.tatesuke.money.destination;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;

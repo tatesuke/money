@@ -1,4 +1,4 @@
-package com.tatesuke.money.account;
+package com.tatesuke.money.source;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -7,7 +7,7 @@ import java.text.ParseException;
 
 import com.codeborne.selenide.Condition;
 
-public class UcAccount implements IAccount {
+public class UcSource implements ISource {
 
 	private static final DecimalFormat DF_MAX = new DecimalFormat("###,### 万円");
 	private static final DecimalFormat DF_AMMOUNT = new DecimalFormat("###,### 円");
@@ -16,7 +16,7 @@ public class UcAccount implements IAccount {
 	private String idUc;
 	private String passUc;
 
-	public UcAccount(String idUc, String passUc) {
+	public UcSource(String idUc, String passUc) {
 		this.idUc = idUc;
 		this.passUc = passUc;
 	}

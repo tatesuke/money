@@ -1,11 +1,11 @@
-package com.tatesuke.money.account;
+package com.tatesuke.money.source;
 
 import static com.codeborne.selenide.Selenide.*;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
 
-public class RakutenAccount implements IAccount {
+public class RakutenSource implements ISource {
 
 	private static final DecimalFormat DF = new DecimalFormat("###,###円");
 
@@ -13,7 +13,7 @@ public class RakutenAccount implements IAccount {
 	private String idRakuten;
 	private String passRakuten;
 
-	public RakutenAccount(String idRakuten, String passRakuten) {
+	public RakutenSource(String idRakuten, String passRakuten) {
 		this.idRakuten = idRakuten;
 		this.passRakuten = passRakuten;
 	}

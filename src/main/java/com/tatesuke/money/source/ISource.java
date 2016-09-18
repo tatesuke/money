@@ -1,6 +1,6 @@
-package com.tatesuke.money.account;
+package com.tatesuke.money.source;
 
-public interface IAccount {
+public interface ISource {
 
 	String getName();
 

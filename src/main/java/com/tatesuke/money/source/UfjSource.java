@@ -1,32 +1,36 @@
-package com.tatesuke.money.account;
+package com.tatesuke.money.source;
 
 import static com.codeborne.selenide.Selenide.*;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.Iterator;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 
-public class UfjAccount implements IAccount {
+public class UfjSource implements ISource {
 
 	private static final DecimalFormat DF = new DecimalFormat("###,###円");
 
 	private int balance;
 	private String idUfj;
 	private String passUfj;
+	private String name;
 
-	public UfjAccount(String idUfj, String passUfj) {
+	public UfjSource(String idUfj, String passUfj, String name) {
 		this.idUfj = idUfj;
 		this.passUfj = passUfj;
+		this.name = name;
 	}
 
 	@Override
 	public String getName() {
-		return "UFJ銀行";
+		return name;
 	}
 
 	@Override
@@ -50,7 +54,8 @@ public class UfjAccount implements IAccount {
 		}
 
 		$("#list img").click();
-		String amountStr = $(".yen_kouza_001 .number").innerText();
+
+		String amountStr = getAmountElement().innerText();
 		balance = parse(amountStr);
 
 		$(By.linkText("ログアウト")).click();
@@ -59,6 +64,17 @@ public class UfjAccount implements IAccount {
 		webDriver.switchTo().window(parentHander);
 
 		return balance;
+	}
+
+	private SelenideElement getAmountElement() {
+		Iterator<SelenideElement> it = $$("span.unit").iterator();
+		while (it.hasNext()) {
+			SelenideElement nameElem = it.next();
+			if (name.equals(nameElem.innerText())) {
+				return nameElem.parent().find(".unit");
+			}
+		}
+		return null;
 	}
 
 	private int parse(String amountStr) {

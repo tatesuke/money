@@ -1,4 +1,4 @@
-package com.tatesuke.money.account;
+package com.tatesuke.money.source;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
 
-public class JibunAccount implements IAccount {
+public class JibunSource implements ISource {
 
 	private static final DecimalFormat DF = new DecimalFormat("###,###円");
 
@@ -19,7 +19,7 @@ public class JibunAccount implements IAccount {
 	private String idUfj;
 	private String passUfj;
 
-	public JibunAccount(String idUfj, String passUfj) {
+	public JibunSource(String idUfj, String passUfj) {
 		this.idUfj = idUfj;
 		this.passUfj = passUfj;
 	}
