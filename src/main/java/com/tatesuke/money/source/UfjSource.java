@@ -48,7 +48,7 @@ public class UfjSource implements ISource {
 		$("#account_id").val(idUfj);
 		$("#ib_password").val(passUfj).pressEnter();
 
-		while ($("name[informationShousaiActionForm]").exists()) {
+		while ($("[name=informationShousaiActionForm]").exists()) {
 			$("[name=hyouzi]").click();
 			$("[name=top]").click();
 		}
